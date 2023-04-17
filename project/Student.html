@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset ="UTF-8">
+	<title>Humaray Bachchay NGO</title>
+	<link href="layout.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+	<nav id="navigation-bar" style="z-index: 9;">
+    <img id="logo" src="logo.png">
+		<span class="navbar-text text" style= "margin-top: 30px;"> HUMARAY BACHCHAY  </span>
+		<a href="#git"><p class="impact">Get in Touch</p></a>
+		<div class="dropdown">
+			<p class="impact">Parents/Guardians</p>
+			<div class="dropdown-content">
+			<a href="Std_Admission.php">Student Admission Form</a>
+			<a href="Std_Acc_Form.php">Student Accompanying Form</a>
+			<a href="Assignment_Form.php">Class Assignment Form</a>
+			<a href="available_courses.php">Available Courses</a>
+			<a href="Update_Info.php">Update Information</a>
+			</div>
+		</div> 
+	<!--	<a href="#"><p class="impact">Parents/Guardians</p></a> -->
+		<a href="Student.html"><p class="impact">Students</p></a>
+		<div class="dropdown">
+			<p class="impact">Staff</p>
+			<div class="dropdown-content">
+			<a href="Reports.php">Reports</a>
+			<a href="student.php">Students Per Class</a>
+			<a href="edit.php">Edit Sudents</a>
+			</div>
+		</div>
+		<a href="Home.html"><p class="impact">About</p></a>
+		<a href="Home.html"><p class="impact">Home</p></a>
+	</nav>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<div style="color: #611f72">
+		<H1> STAR STUDENTS</H1>
+	</div>
+	<div style="text-align:center; padding: 0px">
+	<table width=100% height="100%">
+	<tr>
+	<td>
+		<div class="card">
+		  <img src="ST0001.jpg" alt="Student" style="width:100%; height: 320px; border-radius: 5px 5px 0 0; ">
+		  <div class="container_3">
+			<h4><b>ALEEZEH USMAN</b></h4> 
+			<p>DISTINCTION IN ALL SUBJECTS</p> 
+		  </div>
+		</div>
+	</td>
+	<td>
+		<div class="card">
+		  <img src="ST0003.jpg" alt="Student" style="width:100%; height: 320px; border-radius: 5px 5px 0 0;">
+		  <div class="container_3">
+			<h4><b>ABDUL SAMAD</b></h4> 
+			<p>BEST SINGER</p> 
+		  </div>
+		</div>
+	</td>
+	<td>
+		<div class="card">
+		  <img src="ST0002.jpg" alt="Student" style="width:100%; height: 320px; border-radius: 5px 5px 0 0;">
+		  <div class="container_3">
+			<h4><b>AREESHA TAHIR</b></h4> 
+			<p>DISTINCTION IT</p> 
+		  </div>
+		</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="card">
+		  <img src="ST0006.jpg" alt="Student" style="width:100%; height: 320px; border-radius: 5px 5px 0 0;">
+		  <div class="container_3">
+			<h4><b>M. ADIL FAYYAZ</b></h4> 
+			<p>BEST GUITARIST</p> 
+		  </div>
+		</div>
+	</td>
+	<td>
+		<div class="card">
+		  <img src="ST0004.jpg" alt="Student" style="width:100%; height: 320px; border-radius: 5px 5px 0 0;">
+		  <div class="container_3">
+			<h4><b>SHAGUFTA SHAKIR</b></h4> 
+			<p>DISTINCTION CULINARY ARTS</p> 
+		  </div>
+		</div>
+	</td>
+	</tr>
+	</table>
+	</div>	
+	
+	<br><br><br><br><br>
+	</div>	
+	<div class="container_2" id="git">
+  <div style="text-align:center">
+    <h2>Contact Us</h2>
+  </div>
+  <div >
+    <div >
+      <img src="contact2.jpg" style="width:1000px; height:300px ;border-radius: 10%">
+    </div>
+    <div >
+      <form action="" >
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="pakistan">Pakistan</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+	</div>
+	<script>
+		window.onscroll = function() {scrollFunction()};
+
+		function scrollFunction() {
+		  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+			document.getElementById("navigation-bar").style.padding = "0px 10px";
+			document.getElementById("logo").style.height = "120px";
+			document.getElementById("logo").style.width = "110px";
+			document.getElementById("logo").style.marginTop = "0px";
+		  } else {
+			document.getElementById("navigation-bar").style.padding = "40px 10px";
+			document.getElementById("logo").style.height = "190px";
+			document.getElementById("logo").style.width = "180px";
+			document.getElementById("logo").style.marginTop = "-35px";
+		  }
+		}
+	</script>
+	</body>
+</html>
