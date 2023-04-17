@@ -1,0 +1,95 @@
+/*Query No. 1*/
+select * from Student;
+
+
+/*Query No. 2 Mother + Spouses*/
+select DISTINCT mc.Mother_Id , M.F_Name as Mother_Name,fc.Father_ID,F.Father_Name
+from M_CHILD_OF mc, Mother M, F_CHILD_OF fc, Father F
+where mc.STUDENT_ID=fc.STUDENT_ID and M.mother_ID=mc.Mother_ID and
+F.Father_ID=fc.FATHER_ID and mc.Current_=1 and fc.CURRENT_=1;
+
+/*Query No.3 Guardian +relation*/
+select G.Guardian_ID, G.Name, S.STUDENT_ID,S.name as Student_Name,R.Relation
+from Guardian G, Responsible_For R, STUDENT S
+where S.Student_ID= R.Student_ID and R.Guardian_ID=G.Guardian_ID and R.CURRENT_=1
+order by R.Relation;
+
+/*Query No.4 Parents+Children*/
+/*Combined*/
+(select S.STUDENT_ID, S.Name, M.Mother_ID, M.F_Name as Mother_Name, F.Father_ID, F.Father_Name
+from Student S, Mother M, Father F, m_child_of mc, f_child_of fc
+where s.student_Id=mc.student_Id and s.student_Id=fc.student_Id and 
+m.mother_ID=mc.mother_ID and f.father_id=fc.father_id and mc.Current_=1 and fc.CURRENT_=1);
+/*Individual Mother*/
+select S.STUDENT_ID, S.Name, M.Mother_ID, M.F_Name as Mother_Name
+from Student S, Mother M, m_child_of mc
+where m.mother_ID=mc.mother_ID and  mc.Current_=1 and s.student_Id=mc.student_Id;
+/*Individual Father*/
+select S.STUDENT_ID, S.Name, M.Father_ID, M.Father_Name as Father_Name
+from Student S, Father M, f_child_of mc
+where m.father_ID=mc.father_id and  mc.Current_=1 and s.student_Id=mc.student_Id;
+/*With Nulls in between using joins*/
+select Student.Student_ID, m_child_of.Mother_ID, f_child_of.Father_ID
+from (select Student_ID from m_child_of
+	union select Student_ID from f_child_of
+	union select STUDENT_ID from Student
+) Student left outer join
+m_child_of on Student.STUDENT_ID= m_child_of.STUDENT_ID and m_child_of.current_=1 left outer join
+f_child_of on STUDENT.STUDENT_ID=f_child_of.STUDENT_ID and f_child_of.current_=1
+order by Student.STUDENT_ID;
+
+/*Query No. 5*/
+select S.STUDENT_ID, S.Name, E.class_id from Student S, m_child_of mc, f_child_of fc, ENROLLMENT_HISTORY E 
+where S.student_Id=mc.student_Id and S.student_Id=fc.student_Id and mc.CURRENT_=1 
+and fc.CURRENT_=1 and E.student_Id=S.STUDENT_ID
+group by S.STUDENT_ID, S.Name, E.class_id;
+
+/*Query No. 6*/
+select E.Student_ID, E.Class_ID, E.Section_ID as New_section, S.old_section as Old_section, S.Change_Date , S.Fee_Challan from Section_Change S , ENROLLMENT_HISTORY E
+ Where S.Fee_Challan = E.Fee_Challan and S.Change_Date > '01/05/2020';
+
+/*Query No. 7*/
+select S.Student_ID, S.Name, E.Class_ID from Student S, ENROLLMENT_HISTORY E
+where S.STUDENT_ID=E.STUDENT_ID and E.enrollment_date > '01/05/2020'
+group by S.Student_ID, S.Name, E.Class_ID;
+/*Query No. 8*/
+select distinct Student.Student_ID, m_child_of.Mother_ID,mother.f_name, f_child_of.Father_ID, father.father_name
+	from (select Student_ID from m_child_of
+		union select Student_ID from f_child_of
+		union select STUDENT_ID from Student
+	) 
+	Student  left outer join
+	m_child_of on Student.STUDENT_ID= m_child_of.STUDENT_ID and m_child_of.current_=1 left outer join
+	f_child_of on STUDENT.STUDENT_ID=f_child_of.STUDENT_ID and f_child_of.current_=1 left outer join 
+	father on father.father_ID = f_child_of.father_id left outer join 
+	mother on mother.mother_ID = m_child_of.mother_id left outer join
+	mother_history on mother.mother_id = mother_history.mother_ID left outer join
+	father_history on father.father_id = father_history.father_ID
+	where Student.Student_ID IN(
+		select Student_ID
+		from Student 
+		where DATE_FORMAT(SYSDATE(), '%Y-%m-01')<12
+	);
+
+/*Query No. 9 Early introducers*/
+select distinct Student.Student_ID, m_child_of.Mother_ID, f_child_of.Father_ID
+	from (select Student_ID from m_child_of
+		union select Student_ID from f_child_of
+		union select STUDENT_ID from Student
+		union select Student_ID from Enrollment_History
+	) 
+	Student  left outer join
+	m_child_of on Student.STUDENT_ID= m_child_of.STUDENT_ID and m_child_of.current_=1 left outer join
+	f_child_of on STUDENT.STUDENT_ID=f_child_of.STUDENT_ID and f_child_of.current_=1 left outer join
+	ENROLLMENT_HISTORY on Student.STUDENT_ID=ENROLLMENT_HISTORY.STUDENT_ID
+	where Student.Student_ID IN(
+		select S.Student_ID
+		from Student S, ENROLLMENT_HISTORY E
+		where E.STUDENT_ID=S.STUDENT_ID and trunc(months_between(E.enrollment_date,S.dob)/12)<6
+
+
+	);
+
+
+/*Query No. 10*/
+select E.Student_ID,E.Fee_Challan,E.Section_ID New_Section, S.Old_section from Enrollment_History E , Section_Change S where E.Fee_Challan = S.Fee_Challan;
